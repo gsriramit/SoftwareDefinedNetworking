@@ -1,6 +1,7 @@
 ## Microsoft's Software Defined Networking Stack
 
 ### Representation of the Stack
+![SDNStack](https://user-images.githubusercontent.com/13979783/214767499-6d31d2d6-defe-43af-a611-4f6c835119a0.jpg)  
 
 
 - The most important thing for cloud scale networking setup requiring flexibility and scale is a host-based SDN model
