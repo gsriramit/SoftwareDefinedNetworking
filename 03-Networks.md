@@ -34,8 +34,17 @@ Additional logical networks are required to use gateways and the SLB. It is requ
 - **Note:** The SLB Mux and the Internal NIC of the physical routers or TORs are connected to the Transit Network. It is through this transit network that the Muxs reach the public/private routers for BGP peering and route advertisement
 
 **Illustration of the BGP Route advertisement from Mux to the TOR Switch**
+![RouteAdvertisementFromMuxToTOR](https://user-images.githubusercontent.com/13979783/214899215-cd74456d-417a-4d73-9be5-f8d7a2cb1131.png)
+
+
+
+
 
 **Illustration of the BGP ASNs for peering**
+![BGPPeeringASN](https://user-images.githubusercontent.com/13979783/214899262-8307693a-dee4-4e48-b1f8-3c7daa6206f1.png)
+
+
+
 
 #### HNV Logical Network for Tenant Traffic
 - Traffic between VMs (TBD)
