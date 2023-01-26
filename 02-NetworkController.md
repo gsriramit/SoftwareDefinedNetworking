@@ -15,6 +15,7 @@
   - NC Virtual Machines are connected to the Management Logical Network and use this network to pass on the settings to the Host Machines.The NC host agent and the SLB host agent are supposed to be interacting with the NC through mgmt network.The significance of the logical networks is detailed in a separate document. 
 
 ### Illustration of NC's interation with the Management Plane and Data Plane
+![NC-API-Illustration](https://user-images.githubusercontent.com/13979783/214771268-5bc7d3da-a18a-4fce-b59f-659af99b2120.png)
 
 
 ### Network Controller Features
