@@ -21,4 +21,11 @@ Each of these physical compute machines in the SDN setup has a virtual switch cr
   - The VNET layer maintains data for the CA<->DA mapping that lets the switch perform the encapsulation and decapsulation based on NVGRE when the packets traverse between segments of a VM network through the HNV logical network   
 From the perspective of public cloud (Azure) infrastructure, these would map to the Network Watcher as a monitoring service and the other associated services including network packet capture, NSG flow logs and connection troubleshoot.  
 
+![VFP-VirtualSwitch](https://user-images.githubusercontent.com/13979783/215022567-3cfeff98-0cb4-4f6b-b805-609e8cde3453.png)
+ src: https://nwktimes.blogspot.com/2023/01/azure-host-based-sdn-part-1-vfp.html
+ 
+ 
+ 
+ 
+
 
