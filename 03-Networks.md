@@ -37,9 +37,6 @@ Additional logical networks are required to use gateways and the SLB. It is requ
 ![RouteAdvertisementFromMuxToTOR](https://user-images.githubusercontent.com/13979783/214899215-cd74456d-417a-4d73-9be5-f8d7a2cb1131.png)
 
 
-
-
-
 **Illustration of the BGP ASNs for peering**
 ![BGPPeeringASN](https://user-images.githubusercontent.com/13979783/214899262-8307693a-dee4-4e48-b1f8-3c7daa6206f1.png)
 
@@ -47,16 +44,17 @@ Additional logical networks are required to use gateways and the SLB. It is requ
 
 
 #### HNV Logical Network for Tenant Traffic
-- Traffic between VMs (TBD)
-- Traffic from the SLB Mux to the DIP of the backend tenant VMs (TBD)
+The HNV logical network, also know as the Provider Network is used by the Tenant Virtual Machines to send traffic between each other and also to the machines in the connected networks. The HNV overlay network receives and carries the encapsulated packet (following the NVGRE) where the outer packet contains the IP and MAC of the host machines that the packet egresses from. NVGRE has been detailed in a separate document. The following are examples of traffic that use the HNV Provider Network 
+- Traffic between VMs that are in different subnets of a consumer network and could also be spread among multiple host machines
+- Traffic from the SLB Mux to the DIP of the backend tenant VMs - The SLB mux receives the traffic from the edge routers and then uses the HNV provider network to send the packets to the identified backend tenant VM
 
 ### Virtual Machine Network 
-- VNET and Subnets that are allocated to each of the tenants
--		a. One per tenant for isolation 
-		b. SDN makes it possible for multiple tenants to use the same VM network CIDR
-- Connection of the Virtual Machines to the Host Virtual Switch through the Consumer Address space vNIC. The switch in turn connects to the HNV PA logical network
-- IP address to the VMs are assigned from these networks
-- General routing setup (a brief mention about NVGRE)
+Tenant workloads are deployed within dedicated Virtual Networks and Subnets that are allocated to each of the tenants. Following are the characteristics of these Virtual Networks
+-	One or more networks per tenant that are spread across multiple host machines. In the Azure cloud, the Virtual Networks span Availability zones which means that the underlying physical machines can be spread across multiple data centres in different Availability zones 
+- SDN makes it possible for multiple tenants to use the same VM network CIDR. This implies that these consumer networks would not have to have different IP spaces and can exist in the same set of host machines
+  - An address space has to be assigned each of these consumer networks and this would be space from which the VMs would be assigned IPs. These would be addresses that would be seen by the receiving appliance, either in the same network or a connected network
+- The Virtual Machines in the Consumer network are connected to the Host Virtual Switch using the Consumer Address space (CA) vNIC. The switch in turn connects to the HNV PA logical network
+
 
 ## References
 1. https://learn.microsoft.com/en-us/azure-stack/hci/concepts/plan-software-defined-networking-infrastructure
