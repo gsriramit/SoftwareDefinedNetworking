@@ -4,6 +4,9 @@
 
 ### Routing of Traffic 
 Reference: https://learn.microsoft.com/en-us/azure-stack/hci/concepts/software-load-balancer#how-software-load-balancer-works 
+
+![SDN-Architecture-SLB](https://user-images.githubusercontent.com/13979783/215435118-ad5c6bcf-765a-4305-9e64-d11dbae7e198.png)
+
 Initial setup & dynamic updates
 - NC has set up a public IP (20.20.20.100) on all the mux instances spread across multiple physical hosts
 - The SLB configuration has been fed to the NC through the management plane entity, ARM template
@@ -29,11 +32,14 @@ Note:
 2. The host switch should use the HNV provider interface to send the traffic to the tenant VM
 
 ### Load balancing internal datacenter traffic
+![image](https://user-images.githubusercontent.com/13979783/215435452-1339a5e2-2e3f-4655-9339-e48db9c88d6c.png)
 
 - When load balancing network traffic internal to the datacenter, such as between tenant resources that are running on different servers and are members of the same virtual network, the Hyper-V virtual switch to which the VMs are connected performs NAT.
 - With internal traffic load balancing, the first request is sent to and processed by the MUX, which selects the appropriate DIP, and then routes the traffic to the DIP. From that point forward, the established traffic flow bypasses the MUX and goes directly from VM to VM
 
 ### DSR
+![image](https://user-images.githubusercontent.com/13979783/215435316-758cd37e-c3f0-452d-ba30-ac22f29a3c40.png)
+
 When tenant VMs respond and send outbound network traffic back to the internet or remote tenant locations, because the NAT is performed by the Hyper-V host, the traffic bypasses the MUX and goes directly to the edge router from the Hyper-V host. This MUX bypass process is called Direct Server Return (DSR).
 
 ### HA ports & Floating IP
