@@ -21,6 +21,7 @@ All the concepts explained in this repo have been based on references from the o
 2. [SDN implementation walkthrough-shortened version](https://www.youtube.com/watch?v=KOhYMV0qSqg&list=PLQL1JGGe-t0tHR4spF6Z29AP7yB0qcHow&index=16&ab_channel=TechManTalk)
 3. [Software Defined Data Centre- MS Tech Summit](https://www.youtube.com/watch?v=Ozjq3eGRkbo&ab_channel=MicrosoftTechSummit)
 4. [Software Defined Load Balancer](https://www.youtube.com/watch?v=YsDnOZr8d8M&ab_channel=Whoppa365InformationHub)
+   - [John Savill's deep dive on SLB](https://www.youtube.com/watch?v=wJvmXM81tEI&list=PLQL1JGGe-t0tsAL4mNI6k1BflOew1HsfR&index=25&t=2043s&ab_channel=JohnSavill%27sTechnicalTraining)
 5. [Implementation of a SDN scenario using Powershell](https://www.youtube.com/watch?v=vn5UGVLkNiM&ab_channel=Whoppa365InformationHub)
 
 ### SDN Concepts

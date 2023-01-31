@@ -13,7 +13,7 @@ Initial setup & dynamic updates
   - The configuration is then programmed on the mux instances through the SLB host agent that is deployed on every host in the SDN cluster
   - The NC also programs the virtual switch with all the necessary information including ACLs, NAT, Metering and Virtual Network. In this case, the Virtual Network matching table would contain the mapping information between the PA and the CA. This will be required in step#4 of the traffic flow explained below
   - The virtual switch would supposedly be updated by the mux instances for every *unique initial packet* processed. The NAT match table should now contain information sufficient for the vSwitch to handle the response back to the client, without relying on the mux
-- Mux instances have completed the eBGP peering with the internet facing edge routers. With this peering the routing table of the routers would have been updated with 3 Transit IP addresses of the mux instances for the traffic received on the public VIP address. The same has been shown in the diagram
+- Mux instances have completed the eBGP peering with the internet facing edge routers. With this peering the routing table of the routers would have been updated with 3 Transit IP addresses of the mux instances for the traffic received for the public VIP address. The same has been shown in the diagram
 - ECMP would be used by the edge routers when trying to identify a mux to send the received traffic to  
 
 ### Flow
@@ -46,3 +46,17 @@ When tenant VMs respond and send outbound network traffic back to the internet o
 TBD
 
 ### Outbound NAT settings
+- Outbound rules that we configure through portal/ARM template are sent to the Network controller and is then sent to a) the MUX thorugh the SLB host agent and b) the virtual switch in each of the hosts through the NC host agent
+- The configuration would let the virtual switch in each physical host know the range & hence the number of ports assigned to each of the virtual machines instances that are hosted in that physical instance. In the reference architecture that we have considered, it would be 64000 ports split across 3 VM instances.
+#### Flow
+1. When any customer VM needs to make an internet bound request, it sends the request to the VFP in that physical host
+   - src: 10.10.10.11:<availablePort> (TCP or could even be HTTPs)
+   - dest: FQDN or clientPIP
+2. The VFP contains the data on the set of ports assigned to each of the CA address
+   - The switch now uses the **public frontendIP** of the SLB and does a SNAT so that the request would now be made using a srcIP:srcPort as in 20.20.20.102:<allocatedport>
+   - The traffic still uses the Direct Server Return (DSR) to send the packets to the external entity (e.g. microsoft.com)
+3. When the target server responds to the request, the flow is similar to the conventional flow explained in the Traffic routing section. The traffic is sent to one of the MUX instances by the edge router (that has an eBGP peering with the MUX instances)
+  - src: clientPIP:<arbitraryPort>
+  - dest: 20.20.20.102:<allocatedPort>
+4. The Mux instances having been configured by the mapping between the ports and the backend pool members' CA address, now knows which host and which VM to send the response back to. In this case, it sends the response to 10.10.10.11 through the switch in Host#1. The vitual machines now receives the response translated by the switch as src:clientPIP:<arbitraryPort> and dest:10.10.10.11:<listeningPort>
+   - Encapsulation, Decapsulation and packet traversal through the HNV provider network still happen when the Mux needs to send the response back to the customer VM, as explained in the earlier sections
