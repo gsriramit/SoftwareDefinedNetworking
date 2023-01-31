@@ -45,7 +45,10 @@ When tenant VMs respond and send outbound network traffic back to the internet o
 ### HA ports & Floating IP
 TBD
 
-### Outbound NAT settings
+### Outbound Rules
+
+![SDN-Architecture - SLB-OutboundRules](https://user-images.githubusercontent.com/13979783/215789164-02df9eb6-a237-44b3-8ee7-37a37e0b20f6.png)
+
 - Outbound rules that we configure through portal/ARM template are sent to the Network controller and is then sent to a) the MUX thorugh the SLB host agent and b) the virtual switch in each of the hosts through the NC host agent
 - The configuration would let the virtual switch in each physical host know the range & hence the number of ports assigned to each of the virtual machines instances that are hosted in that physical instance. In the reference architecture that we have considered, it would be 64000 ports split across 3 VM instances.
 #### Flow
